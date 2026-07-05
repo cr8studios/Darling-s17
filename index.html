@@ -1,1 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darling's 17</title>
+    <meta name="description" content="A premium digital time capsule built for one person. Welcome to your birthday week, Darling. Everything leads here.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F5EFE6',
+                        beige: '#E8DDD0',
+                        rose: '#F2C8C4',
+                        offwhite: '#FAF8F5',
+                        accent: '#c58b85' 
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        html { scroll-padding-top: 100px; }
+        
+        body {
+            background-color: #FAF8F5;
+            color: #292524;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* FILM GRAIN TEXTURE */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(197, 139, 133, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 15px 35px -5px rgba(197, 139, 133, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(242, 200, 196, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 45px -10px rgba(197, 139, 133, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(242, 200, 196, 0.8);
+        }
+
+        .song-highlighted {
+            background: linear-gradient(135deg, rgba(242, 200, 196, 0.2), rgba(242, 200, 196, 0.05));
+            border: 1px solid rgba(242, 200, 196, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 10s infinite alternate ease-in-out; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+        }
+        .particle {
+            position: absolute;
+            animation: float 6s infinite ease-in-out;
+            color: #c58b85;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="selection:bg-rose selection:text-white pb-32 relative">
+
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-rose rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-beige rounded-full mix-blend-multiply filter blur-[100px] opacity-50 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[500px] h-[500px] bg-accent rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-4000"></div>
+        
+        <!-- Ambient Particles -->
+        <i data-lucide="sparkle" class="particle top-[15%] left-[10%] w-4 h-4" style="animation-delay: 0s;"></i>
+        <i data-lucide="sparkle" class="particle top-[40%] right-[15%] w-5 h-5" style="animation-delay: 2s;"></i>
+        <i data-lucide="star" class="particle bottom-[30%] left-[20%] w-3 h-3" style="animation-delay: 1s;"></i>
+        <i data-lucide="heart" class="particle top-[70%] right-[25%] w-4 h-4 fill-current opacity-20" style="animation-delay: 3s;"></i>
+    </div>
+
+    <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] w-[95%] max-w-3xl liquid-glass !rounded-full px-6 py-4 flex items-center justify-between">
+        <div class="hidden sm:flex items-center gap-2">
+            <i data-lucide="heart" class="text-rose w-4 h-4 fill-current"></i>
+            <span class="font-serif text-stone-800 font-bold tracking-widest text-lg">D's 17</span>
+        </div>
+        <div class="flex items-center justify-center w-full sm:w-auto gap-5 sm:gap-8 text-xs sm:text-sm font-sans font-semibold uppercase tracking-[0.2em] text-stone-600">
+            <a href="#welcome" class="hover:text-accent transition-colors">Home</a>
+            <a href="#darling" class="hover:text-accent transition-colors">Darling</a>
+            <a href="#about" class="hover:text-accent transition-colors">Story</a>
+            <a href="#music" class="hover:text-accent transition-colors">Music</a>
+            <a href="#faq" class="hover:text-accent transition-colors">FAQ</a>
+        </div>
+    </nav>
+
+    <div id="app-container" class="min-h-screen pt-28">
+        <div id="main-site-content">
+            
+            <header class="w-full flex flex-col items-center justify-center pt-12 pb-4 px-4 animate-fade-in-up relative">
+                <!-- Visual Element: Hero Portrait Frame with Glow -->
+                <div class="relative mb-10 group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-rose to-beige rounded-t-full rounded-b-full blur-md opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                    <div class="w-44 h-60 md:w-56 md:h-72 rounded-t-full rounded-b-full overflow-hidden border-4 border-white shadow-2xl relative z-10">
+                        <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Darling Portrait" />
+                        <div class="absolute inset-0 bg-rose mix-blend-overlay opacity-20"></div>
+                    </div>
+                    <!-- Decorative Sparkles -->
+                    <i data-lucide="sparkle" class="absolute -top-4 -right-4 w-8 h-8 text-accent animate-pulse"></i>
+                    <i data-lucide="sparkles" class="absolute -bottom-2 -left-4 w-6 h-6 text-rose animate-pulse" style="animation-delay: 1s;"></i>
+                </div>
+
+                <p class="text-xs md:text-sm font-sans uppercase tracking-[0.4em] text-accent mb-3 font-semibold">A Premium Digital Experience</p>
+                <h1 id="hero-title" class="text-6xl md:text-8xl font-serif text-stone-800 drop-shadow-md tracking-tight"></h1>
+            </header>
+
+            <main class="relative z-10">
+                
+                <div id="welcome" class="w-full max-w-5xl mx-auto px-6 mb-16 animate-fade-in-up" style="animation-delay: 100ms;">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="stats-container">
+                        <!-- Stats injected via JS -->
+                    </div>
+                </div>
+
+                <!-- WELCOME MESSAGE (Decorated Box) -->
+                <div class="w-full max-w-4xl mx-auto my-16 px-6 animate-fade-in-up" style="animation-delay: 200ms;">
+                    <div class="glass-panel rounded-3xl p-10 md:p-14 text-center relative overflow-hidden group">
+                        <!-- Corner accents -->
+                        <div class="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-rose opacity-40 rounded-tl-lg"></div>
+                        <div class="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-rose opacity-40 rounded-br-lg"></div>
+                        
+                        <p id="welcome-text" class="text-lg md:text-xl text-stone-700 leading-relaxed font-serif whitespace-pre-wrap max-w-3xl mx-auto relative z-10"></p>
+                    </div>
+                </div>
+
+                <!-- AESTHETIC DIVIDER -->
+                <div class="w-full flex justify-center py-4 opacity-70 items-center gap-4">
+                    <div class="w-16 h-px bg-gradient-to-r from-transparent to-accent"></div>
+                    <i data-lucide="heart" class="w-4 h-4 text-rose fill-current"></i>
+                    <div class="w-16 h-px bg-gradient-to-l from-transparent to-accent"></div>
+                </div>
+
+                <div id="darling" class="w-full max-w-4xl mx-auto my-16 px-6 animate-fade-in-up" style="animation-delay: 300ms;">
+                    <div class="flex items-center gap-4 mb-10 justify-center">
+                        <i data-lucide="sparkles" class="text-rose w-6 h-6"></i>
+                        <h2 id="darling-heading" class="text-4xl font-serif text-stone-800 text-center tracking-wide"></h2>
+                        <i data-lucide="sparkles" class="text-rose w-6 h-6"></i>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-10 md:p-16 relative">
+                        <span class="absolute top-4 left-6 text-7xl text-rose opacity-20 font-serif leading-none">"</span>
+                        <p id="darling-text" class="text-lg md:text-xl text-stone-700 leading-loose text-center font-serif italic max-w-2xl mx-auto whitespace-pre-wrap relative z-10"></p>
+                        <span class="absolute bottom-0 right-6 text-7xl text-rose opacity-20 font-serif leading-none rotate-180">"</span>
+                    </div>
+                </div>
+
+                <!-- AESTHETIC DIVIDER -->
+                <div class="w-full flex justify-center py-4 opacity-70 items-center gap-4">
+                    <div class="w-16 h-px bg-gradient-to-r from-transparent to-accent"></div>
+                    <i data-lucide="sparkle" class="w-4 h-4 text-rose"></i>
+                    <div class="w-16 h-px bg-gradient-to-l from-transparent to-accent"></div>
+                </div>
+
+                <div id="about" class="w-full max-w-4xl mx-auto my-16 px-6 animate-fade-in-up" style="animation-delay: 400ms;">
+                    <div class="flex items-center gap-3 mb-10 justify-center">
+                        <h2 id="about-heading" class="text-4xl font-serif text-stone-800 text-center tracking-wide"></h2>
+                    </div>
+
+                    <div class="glass-panel rounded-3xl p-10 md:p-14 relative">
+                        <!-- Single long paragraph format -->
+                        <p id="about-text" class="text-stone-700 leading-loose text-left md:text-justify max-w-3xl mx-auto text-lg whitespace-pre-wrap font-serif"></p>
+                    </div>
+                </div>
+
+                <div id="music" class="w-full max-w-4xl mx-auto my-20 px-6 animate-fade-in-up">
+                    <div class="flex items-center gap-4 mb-10 justify-center">
+                        <i data-lucide="music-4" class="text-rose w-7 h-7"></i>
+                        <h2 class="text-4xl font-serif text-stone-800 text-center tracking-wide">Music Vault</h2>
+                        <i data-lucide="music-4" class="text-rose w-7 h-7"></i>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-6 md:p-10">
+                        <div id="music-container" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <div id="faq" class="w-full max-w-4xl mx-auto my-20 px-6 animate-fade-in-up">
+                    <div class="flex items-center gap-3 mb-10 justify-center">
+                        <h2 class="text-4xl font-serif text-stone-800 text-center tracking-wide">You Asked, I Answered</h2>
+                    </div>
+                    <div class="glass-panel rounded-3xl p-10 md:p-14">
+                        <div id="faq-container" class="space-y-8 max-w-3xl mx-auto"></div>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-4xl mx-auto my-32 px-6 animate-fade-in-up">
+                    <div class="flex items-center gap-3 mb-10 justify-center">
+                        <i data-lucide="lock" class="text-stone-400 w-6 h-6"></i>
+                        <h2 class="text-3xl font-serif text-stone-800 text-center">More Surprises</h2>
+                        <i data-lucide="lock" class="text-stone-400 w-6 h-6"></i>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-5">
+                        <!-- Generates 5 locked boxes via JS loop in the render function -->
+                        <div id="locked-boxes-container" class="contents"></div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- CUSTOM MESSAGE BOX -->
+    <div id="custom-msg-box" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white px-6 py-4 rounded-full shadow-2xl border border-rose opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-3">
+        <i data-lucide="info" class="text-accent w-5 h-5"></i>
+        <span id="custom-msg-text" class="text-stone-700 font-sans font-medium tracking-wide"></span>
+    </div>
+
+    <script>
+        const SITE_CONTENT = {
+            global: { title: "Darling's 17" },
+            stats: {
+                insideJokes: "420", 
+                argumentsSurvived: "too many",
+                darlingsSaid: "lost count",
+            },
+            welcomeText: "Heyyy darlingg...\n\nWelcome to your birthday weekkk... I've genuinely been sooo damnn excited for this. From today till July 11 you'll keep finding little surprises from me... some will make you smile... some might embarrass you... and hopefully some you'll never forget. Just do me one favour... don't throw anything away... and keep every clue safe... you'll know why very soon. I love you sooo soo much mahh babyygirll.",
+            darlingSection: {
+                heading: "Why 'Darling'?",
+                text: "Whyy is the title named Darling's 17 and not Jaanu's 17 even though I call you jaanu all the time... there's a reason I've never properly opened up about.\n\nBack when I had started liking you, I genuinely had no idea that you liked me too. One day I casually called you darling... then you started calling me darling too. That one word made me ridiculously happy and gave me hope that maybe you liked me back. I even told Afroz and he laughed saying you definitely liked me. Looking back it was just one word... but somehow it became ours.\n\nEven today I call you baby, jaanu, shona and sweetheart... but darling will always remind me of where everything started. I hope years from now, even if we have a hundred nicknames, darling still makes us smile because we'll remember exactly how it all began.\n\nI love youuu my darling... always."
+            },
+            aboutUs: {
+                heading: "Where do I even start? 😭",
+                text: "I guess it all started way before either of us knew what was about to happen. Back in 4th grade, I remember thinking you were really pretty. It wasn't love or anything... just one of those tiny childhood crushes that you don't think much about. Then life happened... and in 7th grade I found out my best friend was dating you. I won't lie... I used to listen to Treat You Better a lot back then 😭. Looking back now, it's actually funny because I had no idea that one day I'd end up sending that song to you. After that, life moved on and we slowly drifted. You were still my friend... but nothing more than that. Then came 9th grade. We ended up in the same class, and somehow... without either of us planning it... we became best friends. That's when everything started changing. I found myself texting you way more than anyone else. I'd randomly wait for your replies, think about you throughout the day, and somehow every little thing reminded me of you. Honestly... not much has changed because I still do all of that 😭. One day, I randomly called you \"darling.\" Don't ask me where the confidence came from because I genuinely have no idea 😂. It just slipped out. And then... you called me darling too. That one word made me happier than it probably should have. I told Afroz about it, and I still remember him laughing and saying, \"Bro... she definitely likes you.\" Then that idiot went ahead and told you that I liked you because I was taking you calling me \"darling\" in a romantic way 😭. Looking back now... that whole situation was so funny, but I think that's when \"darling\" quietly became our thing. After months of overthinking, hoping, waiting and trying to figure out if you felt the same way... I finally gathered the courage to ask you. 15th December 2023. 12:00 AM. One text. One question. Then came the longest wait of my life 😭. You took your own sweet time to reply, and every second felt like forever. But then you finally said yes... and that's the moment our story truly began. From 15th December 2023 to today, we've laughed until our stomachs hurt, argued over the dumbest things, annoyed each other more times than I can count, made up after fights, celebrated little wins together, and created memories I'll probably carry for the rest of my life. Have we fought? More times than we'd like to admit 😭. But the one thing I've realised is that no fight has ever been stronger than what we have. Somehow, no matter how upset we get, we always find our way back to each other. I think that's my favourite thing about us. We laugh like best friends. We care for each other like a couple. We fight like siblings. And somehow... all three of those things make us us. I genuinely wouldn't want our story to be perfect. I'd rather have this one... because it's real. It's messy sometimes, it's emotional sometimes, it's full of random inside jokes, late-night conversations, unnecessary arguments, \"good morning\" texts, \"have you eaten?\" reminders, and a million little moments that probably don't mean much to anyone else... but mean everything to me. So if someone ever asks me what my favourite love story is... It'll always be ours. And hopefully... this is only the beginning. I love you so much, my darling. Here's to every memory we've already made... and to all the ones that are still waiting for us. ❤️"
+            },
+            faq: [
+                { q: "How much do you love me?", a: "Honestly... I don't think I can ever answer this properly. If I give you a number, it'll never be enough. If I write a paragraph, it'll still feel incomplete. All I know is... you became someone I think about without even trying. I want to be there for your happiest moments... and your worst ones too. So if you ever ask me this again... my answer will always be the same... more than I'll ever be able to put into words, darling." },
+                { q: "Why do you love me?", a: "I've asked myself this so many times... and I still don't have just one answer. I love you because you're you. The way you get excited over little things... the way you care... the way you laugh... and the way you somehow make my day better without even knowing it. It was never one big reason... it was hundreds of little things that slowly became everything." },
+                { q: "Will you promise me that you'll never leave me?", a: "I don't want to make promises that life itself can't guarantee. But I can promise you this... as long as we're together, I'll choose us. I'll communicate instead of giving up. I'll stay when things get difficult instead of walking away because it's easier." },
+                { q: "Would you still choose me if we started all over again?", a: "Without even thinking twice. I'd still text you... still wait for your replies... still get butterflies... and I'd probably still end up calling you 'darling' without realizing it." },
+                { q: "When did you realise you actually loved me?", a: "There wasn't one dramatic movie moment. It happened slowly. Somewhere between all our conversations, jokes and little moments... I stopped liking you and started loving you." },
+                { q: "What's your favourite thing about me?", a: "That you're unapologetically yourself. You're caring, emotional, stubborn sometimes, dramatic sometimes 😭... but you're real. And your smile will always be my favourite." },
+                { q: "What's your favourite memory of us?", a: "Every time I think I've found my favourite memory... we end up making a new one. But my favourite moments are always the simple ones where it's just us talking and laughing." },
+                { q: "Are you sure you won't get bored of me?", a: "You seriously underestimate how interesting you are 😭. Every day you find a new way to make me smile. I honestly feel like I'll keep discovering new things about you for a very long time." },
+                { q: "How do I look?", a: "You already know what I'm going to say 😭... you look beautiful. Not because everything is perfect... but because you're you." },
+                { q: "Should I trim my hair?", a: "Nopeee 😤... unless you have split ends 😂. Other than that... no trimming allowed. I genuinely love your hair exactly the way it is right now. Every time you ask me this, my answer is always going to be the same... don'ttt 😭. I love youuu so much just the way you are... and to me... you're already perfect, darling. ❤️" },
+                { q: "Should I reduce my weight?", a: "Nopee 😂🤍. I loveee the way you are... my cutu cutu. I don't want you changing yourself because you think it'll make me love you more... because it won't. I already do. If you ever decide to work on your health, I'll always support you... but never think you have to lose weight to be 'enough' for me. To me... you're already more than enough, babyy. ❤️" },
+                { q: "Do you really find me pretty... or do you just say it because you love me?", a: "I wouldn't keep saying it if I didn't mean it. Loving you definitely makes me notice even more beautiful things about you. I genuinely think you're pretty... and there are times when I just sit there smiling at your pictures like an idiot 😭." }
+            ],
+            musicVault: [
+                { title: "Tere Liye", artist: "Prince / Atif Aslam", note: "This will always be our song. No matter how many songs I discover in the future, I don't think anything will ever replace this one. Every time it plays, it reminds me of us... our conversations, our moments, and everything we've built together.", audioSrc: "tere-liye.mp3" },
+                { title: "Pehla Pyaar", artist: "Armaan Malik", note: "I know people have different definitions of first love, but for me, you're mine. You're the first person who made love feel real instead of something I'd only seen in movies.", audioSrc: "pehla-pyaar.mp3", startTime: 70, endTime: 107 }, 
+                { title: "Ishq Mubarak", artist: "Arijit Singh", note: "This song wasn't chosen on purpose. It quietly became ours through our happiest moments.", audioSrc: "ishq-mubarak.mp3" }, 
+                { title: "Tum Ho Toh", artist: "Farhan Akhtar", note: "This is how you feel to me. Everything feels lighter when you're around.", audioSrc: "tum-ho-toh.mp3" }, 
+                { title: "Barbaad", artist: "Male Version", note: "If this is what being barbaad feels like, I honestly don't mind it at all.", audioSrc: "barbaad.mp3" }, 
+                { title: "Chaandni", artist: "with Abhijay Sharma", note: "This song feels calm, comforting and beautiful... just like you.", audioSrc: "chaandni.mp3", startTime: 95, endTime: 125 }, 
+                { title: "Treat You Better", artist: "Shawn Mendes", note: "I used to sing this when you were in a relationship that wasn't making you happy. Today it feels surreal that I get to be the one loving you.", audioSrc: "treat-you-better.mp3", startTime: 111, endTime: 172 },
+                { title: "Thangamey", artist: "Anirudh Ravichander", note: null, audioSrc: "thangamey.mp3", startTime: 10, endTime: 78 },
+                { title: "Gehra Hua", artist: "Vishal Mishra", note: null, audioSrc: "gehra-hua.mp3", startTime: 124, endTime: 209 },
+                { title: "Enna Sona", artist: "A.R. Rahman", note: null, audioSrc: "enna-sona.mp3", startTime: 8, endTime: 58 },
+                { title: "High On You", artist: "Music", note: null, audioSrc: "high-on-you.mp3", startTime: 105, endTime: 137 },
+                { title: "Tumhe Apna Banane Ka", artist: "Armaan Malik", note: null, audioSrc: "tumhe-apna-banane-ka.mp3" },
+                { title: "Tu Zaroori", artist: "Sunidhi Chauhan", note: null, audioSrc: "tu-zaroori.mp3", startTime: 84, endTime: 120 },
+                { title: "Humsafar", artist: "Akhil Sachdeva", note: null, audioSrc: "humsafar.mp3" },
+                { title: "Darkhast", artist: "Arijit Singh", note: null, audioSrc: "darkhast.mp3", startTime: 0, endTime: 200 },
+                { title: "Humdum", artist: "Vishal Mishra", note: null, audioSrc: "humdum.mp3", startTime: 0, endTime: 80 },
+                { title: "Mareez-e-Ishq", artist: "Arijit Singh", note: null, audioSrc: "mareez-e-ishq.mp3", startTime: 60, endTime: 100 },
+                { title: "Fakira", artist: "Amit Trivedi", note: null, audioSrc: "fakira.mp3", startTime: 60, endTime: 155 },
+                { title: "Jab Tak", artist: "Armaan Malik", note: null, audioSrc: "jab-tak.mp3" },
+                { title: "Perfect", artist: "Ed Sheeran", note: null, audioSrc: "perfect-ed-sheeran.mp3" },
+                { title: "Perfect", artist: "One Direction", note: null, audioSrc: "perfect-one-direction.mp3", startTime: 110 },
+                { title: "Toota Jo Kabhi Taara", artist: "Atif Aslam", note: null, audioSrc: "toota-jo-kabhi-taara.mp3", startTime: 0, endTime: 170 },
+                { title: "Kaise Hua", artist: "Vishal Mishra", note: null, audioSrc: "kaise-hua.mp3", startTime: 110 },
+                { title: "Pal Pal Dil Ke Paas", artist: "Arijit Singh", note: null, audioSrc: "pal-pal-dil-ke-paas.mp3", startTime: 0, endTime: 160 },
+                { title: "Zaalima", artist: "Arijit Singh", note: null, audioSrc: "zaalima.mp3", startTime: 0, endTime: 115 }
+            ]
+        };
+
+        const showCustomMessage = (msg) => {
+            const box = document.getElementById('custom-msg-box');
+            document.getElementById('custom-msg-text').innerText = msg;
+            box.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            setTimeout(() => { box.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none'); }, 4000);
+        };
+
+        const animateValue = (obj, start, end, duration) => {
+            if (isNaN(end)) { obj.innerHTML = end; return; }
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start) + "+";
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        const renderContent = () => {
+            document.getElementById('hero-title').innerText = SITE_CONTENT.global.title;
+            document.getElementById('welcome-text').innerText = SITE_CONTENT.welcomeText;
+            document.getElementById('darling-heading').innerText = SITE_CONTENT.darlingSection.heading;
+            document.getElementById('darling-text').innerText = `"${SITE_CONTENT.darlingSection.text}"`;
+            document.getElementById('about-heading').innerText = SITE_CONTENT.aboutUs.heading;
+            document.getElementById('about-text').innerText = SITE_CONTENT.aboutUs.text;
+
+            const statsHtml = `
+                <div class="flex flex-col items-center justify-center p-5 bg-white/40 rounded-3xl border border-white/50 backdrop-blur-sm shadow-sm hover:-translate-y-1 transition duration-300">
+                    <h3 class="stat-num text-4xl font-serif text-accent mb-2 drop-shadow-sm" data-val="934">0</h3>
+                    <p class="text-[10px] sm:text-xs font-sans uppercase tracking-[0.2em] text-stone-600 text-center font-semibold">Days Loved</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-5 bg-white/40 rounded-3xl border border-white/50 backdrop-blur-sm shadow-sm hover:-translate-y-1 transition duration-300">
+                    <h3 class="text-3xl sm:text-4xl font-serif text-accent mb-2 drop-shadow-sm">${SITE_CONTENT.stats.insideJokes}</h3>
+                    <p class="text-[10px] sm:text-xs font-sans uppercase tracking-[0.2em] text-stone-600 text-center font-semibold">Inside Jokes</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-5 bg-white/40 rounded-3xl border border-white/50 backdrop-blur-sm shadow-sm hover:-translate-y-1 transition duration-300">
+                    <h3 class="text-xl sm:text-3xl font-serif text-accent mb-2 leading-tight text-center drop-shadow-sm">${SITE_CONTENT.stats.argumentsSurvived}</h3>
+                    <p class="text-[10px] sm:text-xs font-sans uppercase tracking-[0.2em] text-stone-600 text-center font-semibold mt-1">Arguments</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-5 bg-white/40 rounded-3xl border border-white/50 backdrop-blur-sm shadow-sm hover:-translate-y-1 transition duration-300">
+                    <h3 class="text-xl sm:text-3xl font-serif text-accent mb-2 leading-tight text-center drop-shadow-sm">${SITE_CONTENT.stats.darlingsSaid}</h3>
+                    <p class="text-[10px] sm:text-xs font-sans uppercase tracking-[0.2em] text-stone-600 text-center font-semibold mt-1">Darlings Said</p>
+                </div>
+            `;
+            document.getElementById('stats-container').innerHTML = statsHtml;
+
+            // Notice how `song.note` applies the highlight class magically ✨
+            document.getElementById('music-container').innerHTML = SITE_CONTENT.musicVault.map((song, idx) => `
+                <div class="flex flex-col md:flex-row items-center gap-5 p-5 rounded-2xl ${song.note ? 'song-highlighted shadow-sm' : 'bg-white/40 border-white/50 hover:bg-white/60'} border transition duration-300 group">
+                    <button onclick="toggleAudio(${idx})" class="h-14 w-14 ${song.note ? 'bg-rose hover:bg-accent' : 'bg-beige hover:bg-rose'} transition-colors rounded-full flex items-center justify-center flex-shrink-0 text-${song.note ? 'white' : 'stone-700'} shadow-md focus:outline-none transform group-hover:scale-105">
+                        <i data-lucide="play" id="play-icon-${idx}" class="ml-1 w-6 h-6"></i>
+                    </button>
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                            <h4 class="font-serif text-xl text-stone-800 font-bold">${song.title}</h4>
+                            ${song.note ? '<i data-lucide="sparkles" class="w-4 h-4 text-accent fill-current"></i>' : ''}
+                        </div>
+                        ${song.artist ? `<p class="text-xs font-sans text-stone-500 uppercase tracking-widest mb-1 font-semibold">${song.artist}</p>` : ''}
+                        ${song.note ? `<p class="text-stone-700 italic text-sm mt-3 font-serif border-l-2 border-rose pl-4 text-left leading-relaxed">"${song.note}"</p>` : ''}
+                    </div>
+                    <audio id="audio-${idx}" src="${song.audioSrc}" preload="none" onended="audioEnded(${idx})" ontimeupdate="checkAudioTime(${idx})"></audio>
+                </div>
+            `).join('');
+
+            document.getElementById('faq-container').innerHTML = SITE_CONTENT.faq.map(item => `
+                <div class="border-b border-rose/20 pb-6 last:border-b-0 last:pb-0">
+                    <h4 class="font-serif text-xl text-accent mb-3 font-semibold tracking-wide">Q: ${item.q}</h4>
+                    <p class="text-stone-700 pl-5 border-l-2 border-rose leading-loose font-serif text-lg">${item.a}</p>
+                </div>
+            `).join('');
+
+            // Generate locked boxes dynamically
+            let boxesHtml = '';
+            for(let i=1; i<=4; i++) {
+                boxesHtml += `
+                <div class="glass-panel p-8 rounded-3xl text-center border-dashed border-2 border-beige/60">
+                    <i data-lucide="lock" class="mx-auto text-stone-400 mb-3 w-7 h-7 opacity-70"></i>
+                    <p class="text-stone-600 font-sans font-bold tracking-widest uppercase text-sm">Surprise #${i}</p>
+                    <p class="text-xs text-stone-400 mt-2 font-serif italic">Unlocks eventually... u gotta wait darling</p>
+                </div>`;
+            }
+            boxesHtml += `
+                <div class="glass-panel p-8 rounded-3xl text-center border-dashed border-2 border-beige/60 md:col-span-1 col-span-2">
+                    <i data-lucide="lock" class="mx-auto text-stone-400 mb-3 w-7 h-7 opacity-70"></i>
+                    <p class="text-stone-600 font-sans font-bold tracking-widest uppercase text-sm">The Final Chapter</p>
+                    <p class="text-xs text-stone-400 mt-2 font-serif italic">Unlocks eventually... u gotta wait darling</p>
+                </div>`;
+            document.getElementById('locked-boxes-container').innerHTML = boxesHtml;
+            
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                document.querySelectorAll('.stat-num').forEach(el => {
+                    const target = parseInt(el.getAttribute('data-val'));
+                    animateValue(el, 0, target, 2500);
+                });
+            }, 300);
+        };
+
+        let currentAudioIdx = null;
+        
+        window.toggleAudio = (idx) => {
+            const audioEl = document.getElementById(`audio-${idx}`);
+            const iconEl = document.getElementById(`play-icon-${idx}`);
+            
+            if (!audioEl.getAttribute('src') || audioEl.getAttribute('src') === "") {
+                showCustomMessage("Please add the .mp3 file for this song in the folder first, darling! 🎶");
+                return;
+            }
+
+            const songData = SITE_CONTENT.musicVault[idx];
+
+            if (currentAudioIdx !== null && currentAudioIdx !== idx) {
+                const prevAudio = document.getElementById(`audio-${currentAudioIdx}`);
+                const prevIcon = document.getElementById(`play-icon-${currentAudioIdx}`);
+                if (prevAudio) {
+                    prevAudio.pause();
+                    prevIcon.setAttribute('data-lucide', 'play');
+                }
+            }
+
+            if (audioEl.paused) {
+                if (songData.startTime && audioEl.currentTime < songData.startTime) {
+                    audioEl.currentTime = songData.startTime;
+                }
+                audioEl.play().catch(e => showCustomMessage("Oops! Couldn't play the file. Make sure the file name is correct."));
+                iconEl.setAttribute('data-lucide', 'pause');
+                currentAudioIdx = idx;
+            } else {
+                audioEl.pause();
+                iconEl.setAttribute('data-lucide', 'play');
+                currentAudioIdx = null;
+            }
+            lucide.createIcons(); 
+        };
+
+        window.checkAudioTime = (idx) => {
+            const audioEl = document.getElementById(`audio-${idx}`);
+            const songData = SITE_CONTENT.musicVault[idx];
+            if (songData.endTime && audioEl.currentTime >= songData.endTime) {
+                audioEl.pause();
+                audioEl.currentTime = songData.startTime || 0; 
+                window.audioEnded(idx);
+            }
+        };
+
+        window.audioEnded = (idx) => {
+            const iconEl = document.getElementById(`play-icon-${idx}`);
+            if (iconEl) {
+                iconEl.setAttribute('data-lucide', 'play');
+                lucide.createIcons();
+            }
+            currentAudioIdx = null;
+        };
+
+        window.onload = () => {
+            renderContent();
+        };
+    </script>
+</body>
+</html>
