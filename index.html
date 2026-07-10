@@ -1,1 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darling's 17 | A Premium Experience</title>
+    
+    <!-- Premium Typography: Playfair Display for headings, Lato for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'warm-cream': '#F5EFE6',
+                        'beige': '#E8DDD0',
+                        'soft-pink': '#F2C8C4',
+                        'off-white': '#FAF8F5',
+                        'text-dark': '#4A4036',
+                        'accent-rose': '#C4766F',
+                        'accent-rose-dark': '#A35B55'
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['Lato', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(74, 64, 54, 0.1)',
+                        'card': '0 10px 30px -10px rgba(74, 64, 54, 0.08)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #F5EFE6;
+            color: #4A4036;
+        }
 
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5EFE6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8DDD0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F2C8C4;
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism utilities */
+        .glass {
+            background: rgba(250, 248, 245, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(232, 221, 208, 0.5);
+        }
+
+        /* Custom styling for FAQ Details */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        .hero-bg {
+            background: radial-gradient(circle at center, #F2C8C4 0%, transparent 70%),
+                        radial-gradient(circle at top right, #E8DDD0 0%, transparent 50%);
+            background-size: 100% 100%;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        /* Flip Card Utilities */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        .flip-card {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .flip-card-inner {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        /* Hide scrollbar for flip card back if needed */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-soft-pink selection:text-text-dark overflow-hidden">
+
+    <!-- Intro Animation Overlay -->
+    <div id="intro-overlay" class="fixed inset-0 bg-warm-cream z-[100] flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out">
+        <h1 class="font-serif text-5xl md:text-7xl text-accent-rose animate-pulse-slow text-center px-4">Happy 17th Birthday</h1>
+        <p class="font-serif text-2xl md:text-4xl text-accent-rose/80 mt-4 italic text-center px-4">Tamanna</p>
+        <div class="mt-8 flex space-x-2">
+            <div class="w-3 h-3 bg-soft-pink rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+            <div class="w-3 h-3 bg-soft-pink rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+            <div class="w-3 h-3 bg-soft-pink rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+        </div>
+    </div>
+
+    <!-- Floating Scroll Button (Hidden initially) -->
+    <a href="#reasons" id="floating-btn" class="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-accent-rose text-off-white p-4 rounded-full shadow-soft z-40 hover:bg-accent-rose-dark transition-all duration-1000 opacity-0 pointer-events-none transform translate-y-10 flex items-center justify-center group">
+        <span class="absolute right-full mr-4 bg-off-white text-accent-rose px-3 py-1 rounded-lg text-sm font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-sm border border-beige">17 Reasons</span>
+        <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </a>
+
+    <nav class="glass fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-2xl font-semibold text-accent-rose">Darling's 17</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#why-darling" class="text-sm uppercase tracking-widest font-semibold text-text-dark/70 hover:text-accent-rose transition-colors">Why Darling</a>
+                    <a href="#about-us" class="text-sm uppercase tracking-widest font-semibold text-text-dark/70 hover:text-accent-rose transition-colors">Our Story</a>
+                    <a href="#faqs" class="text-sm uppercase tracking-widest font-semibold text-text-dark/70 hover:text-accent-rose transition-colors">FAQs</a>
+                    <a href="#music-vault" class="text-sm uppercase tracking-widest font-semibold text-text-dark/70 hover:text-accent-rose transition-colors">Music Vault</a>
+                    <a href="#birthday-week" class="text-sm uppercase tracking-widest font-semibold text-text-dark/70 hover:text-accent-rose transition-colors">Birthday Week</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-text-dark hover:text-accent-rose focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-off-white border-t border-beige absolute w-full shadow-soft">
+            <div class="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+                <a href="#why-darling" class="block px-3 py-3 text-base uppercase tracking-widest font-semibold text-text-dark/80 hover:bg-warm-cream hover:text-accent-rose rounded-md">Why Darling</a>
+                <a href="#about-us" class="block px-3 py-3 text-base uppercase tracking-widest font-semibold text-text-dark/80 hover:bg-warm-cream hover:text-accent-rose rounded-md">Our Story</a>
+                <a href="#faqs" class="block px-3 py-3 text-base uppercase tracking-widest font-semibold text-text-dark/80 hover:bg-warm-cream hover:text-accent-rose rounded-md">FAQs</a>
+                <a href="#music-vault" class="block px-3 py-3 text-base uppercase tracking-widest font-semibold text-text-dark/80 hover:bg-warm-cream hover:text-accent-rose rounded-md">Music Vault</a>
+                <a href="#birthday-week" class="block px-3 py-3 text-base uppercase tracking-widest font-semibold text-text-dark/80 hover:bg-warm-cream hover:text-accent-rose rounded-md">Birthday Week</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-20 overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="hero-bg absolute inset-0 w-full h-full"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-1/4 left-10 md:left-1/4 w-32 h-32 bg-soft-pink/30 rounded-full blur-2xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-10 md:right-1/4 w-48 h-48 bg-beige/40 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
+        
+        <div class="z-10 reveal active max-w-4xl mx-auto">
+            <p class="uppercase tracking-[0.3em] text-xs md:text-sm mb-6 text-accent-rose font-bold">A Premium Digital Experience</p>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl text-accent-rose mb-6 leading-tight">Darling's 17</h1>
+            
+            <div class="w-24 h-1 bg-gradient-to-r from-transparent via-accent-rose to-transparent mx-auto mb-8 opacity-50"></div>
+            
+            <p class="font-serif italic text-2xl md:text-3xl text-text-dark/80 max-w-2xl mx-auto font-light leading-relaxed">
+                "Everything from this week leads here."
+            </p>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <a href="#stats" class="absolute bottom-10 animate-bounce p-4 cursor-pointer hover:text-accent-rose transition-colors z-20">
+            <svg class="w-6 h-6 text-text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </a>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+
+        <section id="stats" class="reveal relative z-20 -mt-16 mb-32 pt-20">
+            <div class="bg-off-white/90 backdrop-blur-md rounded-3xl shadow-soft p-10 md:p-14 border border-beige/60">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 text-center">
+                    <div class="flex flex-col items-center justify-center space-y-2 group">
+                        <span id="days-loved" class="font-serif text-5xl md:text-6xl text-accent-rose font-medium group-hover:scale-110 transition-transform duration-300">0</span>
+                        <span class="text-xs md:text-sm uppercase tracking-[0.2em] text-text-dark/50 font-bold mt-2">Days Loved</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center space-y-2 group">
+                        <span class="font-serif text-5xl md:text-6xl text-accent-rose font-medium group-hover:scale-110 transition-transform duration-300">???</span>
+                        <span class="text-xs md:text-sm uppercase tracking-[0.2em] text-text-dark/50 font-bold mt-2">Inside Jokes</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center space-y-2 group">
+                        <span class="font-serif text-3xl md:text-4xl text-accent-rose font-medium mt-3 group-hover:scale-110 transition-transform duration-300">too many</span>
+                        <span class="text-xs md:text-sm uppercase tracking-[0.2em] text-text-dark/50 font-bold mt-2">Arguments</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center space-y-2 group">
+                        <span class="font-serif text-3xl md:text-4xl text-accent-rose font-medium mt-3 group-hover:scale-110 transition-transform duration-300">lost count</span>
+                        <span class="text-xs md:text-sm uppercase tracking-[0.2em] text-text-dark/50 font-bold mt-2">Darlings Said</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-darling" class="reveal mb-32 max-w-4xl mx-auto pt-20">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-4">Why Darling?</h2>
+                <div class="w-16 h-px bg-accent-rose/40 mx-auto"></div>
+            </div>
+            
+            <div class="space-y-6 text-lg md:text-xl leading-relaxed text-text-dark/80 font-light px-4 md:px-0 text-justify md:text-center">
+                <p>Why is the title named Darling's 17 and not Jaanu's 17 even though I call you jaanu all the time... there's a reason I've never properly opened up about.</p>
+                <p>Back when I had started liking you, I genuinely had no idea that you liked me too. One day I casually called you darling... then you started calling me darling too. That one word made me ridiculously happy and gave me hope that maybe you liked me back.</p>
+                <p>I even told Afroz and he laughed saying you definitely liked me. Looking back it was just one word... but somehow it became ours.</p>
+                <p>Even today I call you baby, jaanu, shona and sweetheart... but darling will always remind me of where everything started. I hope years from now, even if we have a hundred nicknames, darling still makes us smile because we'll remember exactly how it all began.</p>
+                <div class="pt-8 text-center">
+                    <p class="font-serif italic text-3xl text-accent-rose">I love youuu my darling... always.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-us" class="reveal mb-32 pt-20">
+            <div class="bg-off-white rounded-[2rem] p-8 md:p-16 lg:p-20 shadow-card relative overflow-hidden border border-beige/30">
+                <!-- Decorative Quote Marks -->
+                <div class="absolute -top-6 -left-2 text-[15rem] text-beige opacity-20 font-serif leading-none rotate-180 select-none">"</div>
+                <div class="absolute -bottom-20 -right-4 text-[15rem] text-beige opacity-20 font-serif leading-none select-none">"</div>
+                
+                <div class="text-center mb-16 relative z-10">
+                    <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-4">Our Story</h2>
+                    <div class="w-16 h-px bg-accent-rose/40 mx-auto"></div>
+                </div>
+                
+                <div class="space-y-8 text-lg md:text-xl leading-relaxed text-text-dark/80 relative z-10 max-w-3xl mx-auto font-light">
+                    <p><span class="text-6xl font-serif text-accent-rose float-left mr-4 mt-2 leading-none">W</span>here do I even start? 😭 I guess it all started way before either of us knew what was about to happen. Back in 4th grade, I remember thinking you were really pretty. It wasn't love or anything... just one of those tiny childhood crushes that you don't think much about.</p>
+                    
+                    <p>Then life happened... and in 7th grade I found out my best friend was dating you. I won't lie... I used to listen to Treat You Better a lot back then 😭. Looking back now, it's actually funny because I had no idea that one day I'd end up sending that song to you. After that, life moved on and we slowly drifted. You were still my friend... but nothing more than that.</p>
+                    
+                    <p>Then came 9th grade. We ended up in the same class, and somehow... without either of us planning it... we became best friends. That's when everything started changing. I found myself texting you way more than anyone else. I'd randomly wait for your replies, think about you throughout the day, and somehow every little thing reminded me of you. Honestly... not much has changed because I still do all of that 😭.</p>
+                    
+                    <p>One day, I randomly called you "darling." Don't ask me where the confidence came from because I genuinely have no idea 😂. It just slipped out. And then... you called me darling too. That one word made me happier than it probably should have. I told Afroz about it, and I still remember him laughing and saying, "Bro... she definitely likes you." Then that idiot went ahead and told you that I liked you because I was taking you calling me "darling" in a romantic way 😭. Looking back now... that whole situation was so funny, but I think that's when "darling" quietly became our thing.</p>
+                    
+                    <p>After months of overthinking, hoping, waiting and trying to figure out if you felt the same way... I finally gathered the courage to ask you.</p>
+
+                    <!-- Emphasized Date Block -->
+                    <div class="my-12 py-10 px-8 border-y border-soft-pink/50 bg-warm-cream/50 text-center rounded-2xl transform hover:scale-[1.02] transition-transform duration-300">
+                        <p class="font-serif text-2xl md:text-3xl text-accent-rose font-medium mb-3">15th December 2023. 12:00 AM.</p>
+                        <p class="text-xl italic text-text-dark/70">One text. One question.</p>
+                    </div>
+
+                    <p>Then came the longest wait of my life 😭. You took your own sweet time to reply, and every second felt like forever. But then you finally said yes... and that's the moment our story truly began.</p>
+                    
+                    <p>From 15th December 2023 to today, we've laughed until our stomachs hurt, argued over the dumbest things, annoyed each other more times than I can count, made up after fights, celebrated little wins together, and created memories I'll probably carry for the rest of my life.</p>
+                    
+                    <p>Have we fought? More times than we'd like to admit 😭. But the one thing I've realised is that no fight has ever been stronger than what we have. Somehow, no matter how upset we get, we always find our way back to each other. I think that's my favourite thing about us.</p>
+                    
+                    <div class="pl-6 border-l-2 border-accent-rose/30 space-y-2 my-8 italic text-text-dark/70">
+                        <p>We laugh like best friends.</p>
+                        <p>We care for each other like a couple.</p>
+                        <p>We fight like siblings.</p>
+                        <p>And somehow... all three of those things make us us.</p>
+                    </div>
+
+                    <p>I genuinely wouldn't want our story to be perfect. I'd rather have this one... because it's real. It's messy sometimes, it's emotional sometimes, it's full of random inside jokes, late-night conversations, unnecessary arguments, "good morning" texts, "have you eaten?" reminders, and a million little moments that probably don't mean much to anyone else... but mean everything to me.</p>
+                    
+                    <div class="mt-16 text-center">
+                        <p class="font-serif text-2xl md:text-3xl text-accent-rose mb-4">So if someone ever asks me what my favourite love story is...</p>
+                        <p class="font-serif text-2xl md:text-3xl text-accent-rose mb-8">It'll always be ours.</p>
+                        <p class="text-lg italic text-text-dark/70">And hopefully... this is only the beginning. I love you so much, my darling. Here's to every memory we've already made... and to all the ones that are still waiting for us. ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faqs" class="reveal mb-32 pt-20">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-4">Darling's FAQs</h2>
+                <div class="w-16 h-px bg-accent-rose/40 mx-auto mb-6"></div>
+                <p class="italic text-text-dark/60 font-light">Questions I've been asked, and answers that will never change.</p>
+            </div>
+            
+            <div class="space-y-4 max-w-4xl mx-auto">
+                
+                <!-- FAQ Item Builder -->
+                <script>
+                    const faqData = [
+                        { q: "How much do you love me?", a: "Honestly... I don't think I can ever answer this properly. If I give you a number, it'll never be enough. If I write a paragraph, it'll still feel incomplete. All I know is... you became someone I think about without even trying. I want to be there for your happiest moments... and your worst ones too. So if you ever ask me this again... my answer will always be the same... more than I'll ever be able to put into words, darling." },
+                        { q: "Why do you love me?", a: "I've asked myself this so many times... and I still don't have just one answer. I love you because you're you. The way you get excited over little things... the way you care... the way you laugh... and the way you somehow make my day better without even knowing it. It was never one big reason... it was hundreds of little things that slowly became everything." },
+                        { q: "Will you promise me that you'll never leave me?", a: "I don't want to make promises that life itself can't guarantee. But I can promise you this... as long as we're together, I'll choose us. I'll communicate instead of giving up. I'll stay when things get difficult instead of walking away because it's easier." },
+                        { q: "Would you still choose me if we started all over again?", a: "Without even thinking twice. I'd still text you... still wait for your replies... still get butterflies... and I'd probably still end up calling you 'darling' without realizing it." },
+                        { q: "When did you realise you actually loved me?", a: "There wasn't one dramatic movie moment. It happened slowly. Somewhere between all our conversations, jokes and little moments... I stopped liking you and started loving you." },
+                        { q: "What's your favourite thing about me?", a: "That you're unapologetically yourself. You're caring, emotional, stubborn sometimes, dramatic sometimes 😭... but you're real. And your smile will always be my favourite." },
+                        { q: "What's your favourite memory of us?", a: "Every time I think I've found my favourite memory... we end up making a new one. But my favourite moments are always the simple ones where it's just us talking and laughing." },
+                        { q: "Are you sure you won't get bored of me?", a: "You seriously underestimate how interesting you are 😭. Every day you find a new way to make me smile. I honestly feel like I'll keep discovering new things about you for a very long time." },
+                        { q: "How do I look?", a: "You already know what I'm going to say 😭... you look beautiful. Not because everything is perfect... but because you're you." },
+                        { q: "Should I trim my hair?", a: "Nopeee 😤... unless you have split ends 😂. Other than that... no trimming allowed. I genuinely love your hair exactly the way it is right now. Every time you ask me this, my answer is always going to be the same... don'ttt 😭. I love youuu so much just the way you are... and to me... you're already perfect, darling. ❤️" },
+                        { q: "Should I reduce my weight?", a: "Nopee 😂🤍. I loveee the way you are... my cutu cutu. I don't want you changing yourself because you think it'll make me love you more... because it won't. I already do. If you ever decide to work on your health, I'll always support you... but never think you have to lose weight to be 'enough' for me. To me... you're already more than enough, babyy. ❤️" },
+                        { q: "Do you really find me pretty... or do you just say it because you love me?", a: "I wouldn't keep saying it if I didn't mean it. Loving you definitely makes me notice even more beautiful things about you. I genuinely think you're pretty... and there are times when I just sit there smiling at your pictures like an idiot 😭." }
+                    ];
+
+                    document.write(faqData.map(item => `
+                        <details class="group bg-off-white rounded-2xl shadow-sm border border-beige hover:border-soft-pink transition-colors duration-300 overflow-hidden">
+                            <summary class="flex justify-between items-center font-serif text-lg md:text-xl cursor-pointer p-6 text-text-dark font-medium select-none group-open:text-accent-rose group-open:bg-warm-cream/30">
+                                <span class="pr-6 leading-snug">${item.q}</span>
+                                <span class="transition-transform duration-300 group-open:-rotate-180 text-accent-rose flex-shrink-0">
+                                    <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="px-6 pb-6 pt-2 text-text-dark/75 leading-relaxed font-light text-md md:text-lg border-t border-beige/30 bg-warm-cream/10">
+                                <p>${item.a}</p>
+                            </div>
+                        </details>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <section id="music-vault" class="reveal mb-32 pt-20">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-4">Music Vault</h2>
+                <div class="w-16 h-px bg-accent-rose/40 mx-auto mb-6"></div>
+                <p class="italic text-text-dark/60 font-light">The soundtrack to our story.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                <!-- Javascript will inject song cards here to keep HTML clean -->
+                <script>
+                    const songs = [
+                        { title: "Tere Liye", time: "Full song", note: "This will always be our song. No matter how many songs I discover in the future, I don't think anything will ever replace this one. Every time it plays, it reminds me of us... our conversations, our moments, and everything we've built together." },
+                        { title: "Pehla Pyaar", time: "1:10–1:47", note: "I know people have different definitions of first love, but for me, you're mine. You're the first person who made love feel real instead of something I'd only seen in movies." },
+                        { title: "Tum Ho Toh", time: "Full song", note: "This is how you feel to me. Everything feels lighter when you're around." },
+                        { title: "Chaandni", time: "1:35–2:05", note: "This song feels calm, comforting and beautiful... just like you." },
+                        { title: "Barbaad", time: "Full song", note: "If this is what being barbaad feels like, I honestly don't mind it at all." },
+                        { title: "Treat You Better", time: "1:51–2:52", note: "I used to sing this when you were in a relationship that wasn't making you happy. Today it feels surreal that I get to be the one loving you." },
+                        { title: "Ishq Mubarak", time: "Full song", note: "This song wasn't chosen on purpose. It quietly became ours through our happiest moments." }
+                    ];
+
+                    document.write(songs.map((song, index) => `
+                        <div class="group bg-off-white rounded-2xl p-8 border-l-4 border-soft-pink shadow-card hover:shadow-soft hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                            <!-- Background Music Icon subtly hidden -->
+                            <svg class="absolute -right-6 -bottom-6 w-32 h-32 text-beige opacity-20 transform -rotate-12 group-hover:scale-110 transition-transform duration-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                            
+                            <h3 class="font-serif text-2xl md:text-3xl text-accent-rose mb-2 group-hover:text-accent-rose-dark transition-colors">${song.title}</h3>
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="bg-warm-cream text-text-dark/60 text-xs px-2 py-1 rounded-md uppercase tracking-wider font-semibold border border-beige/50">Timestamp: ${song.time}</span>
+                            </div>
+                            <p class="text-text-dark/80 italic font-light leading-relaxed relative z-10">"${song.note}"</p>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+        </section>
+
+        <section id="reasons" class="reveal mb-32 pt-20">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-4">17 Reasons Why I Love You</h2>
+                <div class="w-16 h-px bg-accent-rose/40 mx-auto mb-6"></div>
+                <p class="italic text-text-dark/60 font-light">Tap each card to reveal.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4" id="cards-container">
+                <script>
+                    const reasonsData = [
+                        "I love you because you make me feel important. Before you came into my life, I genuinely felt like I was just another average guy trying to figure things out. You made me feel seen. You believed in me before I fully believed in myself, and that changed something inside me that I'll always be grateful for.",
+                        "I love you because you've made me want to become a better version of myself. I've started believing in myself more, working harder, dreaming bigger and even becoming more confident. You never asked me to change... you simply inspired me to.",
+                        "I love you because you celebrate even my smallest wins. Whether it's something huge or something that seems insignificant to everyone else, you somehow make me feel proud of it. It never feels like I'm celebrating alone... it feels like we're celebrating together.",
+                        "I love you because of all your tiny habits. The way you talk, the way you react, your expressions, the random little things you do without even noticing... they're the kind of things that make me randomly smile in the middle of the day.",
+                        "I love you because every single time you call me 'daddaa' I genuinely melt. You'll probably never understand how one word can make my entire mood better, but somehow it does every single time.",
+                        "I love you because you're the safest place I've ever found in a person. No matter how stressful life gets, talking to you somehow makes everything feel a little lighter.",
+                        "I love you because you don't just dream about today... you dream about an 'us'. The way you're excited to build a future together makes me realise how lucky I am to have someone who chooses me every day.",
+                        "I love you because you make ordinary moments unforgettable. We don't need expensive dates or fancy places. Somehow, even the simplest conversations become memories I'll never want to forget.",
+                        "I love you because you make me laugh like an absolute idiot. Even when I'm trying to stay serious, you somehow manage to ruin it... and I secretly love that.",
+                        "I love you because I genuinely think you're the prettiest girl I've ever seen. I know you don't always believe me, but every time I look at you, I wonder how you don't see what I see.",
+                        "I love you because every new picture you send somehow becomes my new favourite. I don't even know how that's possible... but you somehow keep proving me wrong every single time.",
+                        "I love you because the way you eat momos, Chokkis and your favourite snacks is honestly one of the cutest things ever. It's such a random thing to love... but that's exactly why it's special.",
+                        "I love you because every achievement I have immediately makes me think, 'I can't wait to tell Tamanna.' You've become the first person I want to share everything with.",
+                        "I love you because you never fail to make me feel loved. Sometimes it's through your words, sometimes through your actions, and sometimes just by being there. You probably don't even realise how much comfort you give me.",
+                        "I love you because we've had our fair share of fights, misunderstandings and emotional moments... but somehow our love has always been bigger than every problem we've faced. That's what makes us real.",
+                        "I love you because I genuinely can't imagine my future without you anymore. Somewhere along the way, you stopped being part of my plans... and became the reason behind so many of them.",
+                        "I love you because you're simply you. Your kindness, your heart, your smile, your excitement, your chaos, your love... everything about you has become a part of my life. You changed me without even trying, and that's something I'll never be able to thank you enough for."
+                    ];
+
+                    document.write(reasonsData.map((reason, index) => `
+                        <div class="flip-card h-72 perspective-1000 w-full" data-index="${index}">
+                            <div class="flip-card-inner relative w-full h-full transform-style-3d shadow-card rounded-2xl">
+                                <!-- Front -->
+                                <div class="absolute w-full h-full backface-hidden bg-gradient-to-br from-warm-cream to-beige/50 border border-beige rounded-2xl flex flex-col items-center justify-center group hover:border-soft-pink transition-colors">
+                                    <span class="font-serif text-6xl text-accent-rose/30 group-hover:text-accent-rose/60 transition-colors duration-500">${index + 1}</span>
+                                    <span class="mt-4 text-sm tracking-[0.2em] uppercase text-text-dark/50 font-semibold group-hover:text-accent-rose transition-colors duration-500">Tap to Reveal</span>
+                                </div>
+                                <!-- Back -->
+                                <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-off-white border border-soft-pink rounded-2xl p-6 flex flex-col items-center justify-center overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-16 h-16 bg-soft-pink/20 rounded-bl-full"></div>
+                                    <div class="absolute bottom-0 left-0 w-12 h-12 bg-beige/30 rounded-tr-full"></div>
+                                    <span class="font-serif text-accent-rose/40 text-2xl mb-2">${index + 1}</span>
+                                    <p class="text-text-dark/80 font-light text-center leading-relaxed text-sm relative z-10 overflow-y-auto max-h-full scrollbar-hide w-full px-2">
+                                        ${reason}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join(''));
+                </script>
+            </div>
+
+            <!-- Final Surprise Card (Hidden initially) -->
+            <div id="final-surprise" class="max-w-3xl mx-auto mt-16 bg-gradient-to-tr from-soft-pink/30 to-warm-cream p-8 md:p-12 rounded-[2rem] border border-accent-rose/30 shadow-card text-center hidden transform scale-95 opacity-0 transition-all duration-1000">
+                <div class="flex justify-center space-x-2 mb-6">
+                    <svg class="w-8 h-8 text-accent-rose animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <svg class="w-8 h-8 text-accent-rose animate-pulse" style="animation-delay: 0.2s;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <svg class="w-8 h-8 text-accent-rose animate-pulse" style="animation-delay: 0.4s;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
+                <p class="font-serif text-xl md:text-2xl text-text-dark/90 leading-relaxed italic mb-6">
+                    "Really couldn't summarise you into just 17 reasons... there are sooo many more. If I kept writing every single reason I love you, this website would probably never end. So instead... here's my promise."
+                </p>
+                <p class="text-lg text-text-dark/80 font-medium">
+                    I'll spend the rest of my life giving you new reasons, one after another. Happy 17th, my darling. I love you more than these 17 cards could ever explain.
+                </p>
+            </div>
+        </section>
+
+        <section id="birthday-week" class="reveal mb-10 pt-20">
+            <div class="text-center py-16 px-6 md:px-12 bg-gradient-to-br from-warm-cream to-beige/40 rounded-[2rem] border border-beige/60 shadow-card relative overflow-hidden">
+                
+                <!-- Confetti/Star SVG overlay -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23c4766f\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+
+                <h2 class="font-serif text-4xl md:text-5xl text-accent-rose mb-6 relative z-10">Happy Birthday Week</h2>
+                
+                <div class="max-w-2xl mx-auto space-y-6 text-text-dark/80 font-light text-lg md:text-xl relative z-10">
+                    <p>Heyyy darlingg... Welcome to your birthday weekkk... I've genuinely been sooo damnn excited for this.</p>
+                    <p>From today till July 11 you'll keep finding little surprises from me... some will make you smile... some might embarrass you... and hopefully some you'll never forget.</p>
+                    <p class="font-medium text-text-dark">Just do me one favour... don't throw anything away... and keep every clue safe... you'll know why very soon.</p>
+                    
+                    <div class="pt-8">
+                        <p class="font-serif italic text-3xl text-accent-rose">I love you sooo soo much mahh babyygirll. ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 border-t border-beige bg-off-white text-text-dark/50 text-sm tracking-widest uppercase">
+        <p>Created for Tamanna &bull; July 2026</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Sticky Navbar Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-sm');
+                nav.style.background = 'rgba(250, 248, 245, 0.95)';
+            } else {
+                nav.classList.remove('shadow-sm');
+                nav.style.background = 'rgba(250, 248, 245, 0.75)';
+            }
+        });
+
+        // Dynamic Days Loved Logic 
+        // Based on start date Dec 15, 2023
+        function calculateDaysLoved() {
+            const startDate = new Date('2023-12-15T00:00:00');
+            const currentDate = new Date(); // In the context of 2026
+            const timeDifference = currentDate.getTime() - startDate.getTime();
+            const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+            return daysDifference > 0 ? daysDifference : 0;
+        }
+
+        // Smooth Counter Animation
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Easing out function
+                const easeOutQuad = progress * (2 - progress);
+                obj.innerHTML = Math.floor(easeOutQuad * (end - start) + start) + "+";
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Scroll Reveal Logic with Intersection Observer (More performant)
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            const revealOptions = {
+                threshold: 0.15, // Trigger when 15% of element is visible
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add("active");
+                        
+                        // Trigger counter if stats section is revealed
+                        if(entry.target.id === 'stats' && !entry.target.classList.contains('counted')) {
+                            const targetDays = calculateDaysLoved();
+                            animateValue(document.getElementById('days-loved'), 0, targetDays, 2500);
+                            entry.target.classList.add('counted');
+                        }
+                        
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+            
+            // Trigger animation for elements already in viewport on load
+            setTimeout(() => {
+                reveals.forEach(reveal => {
+                    const rect = reveal.getBoundingClientRect();
+                    if(rect.top < window.innerHeight) {
+                         reveal.classList.add("active");
+                    }
+                });
+            }, 100);
+        });
+
+        // Intro Animation & Floating Button Logic
+        window.addEventListener('load', () => {
+            const introOverlay = document.getElementById('intro-overlay');
+            const floatingBtn = document.getElementById('floating-btn');
+            
+            // Keep body locked until intro finishes
+            setTimeout(() => {
+                // Fade out intro
+                introOverlay.classList.add('opacity-0');
+                
+                // Allow scrolling again after fade out starts
+                setTimeout(() => {
+                    introOverlay.style.display = 'none';
+                    document.body.classList.remove('overflow-hidden');
+                    document.body.classList.add('overflow-x-hidden');
+                    
+                    // Show floating button
+                    floatingBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                }, 1000); // Wait for CSS transition
+            }, 3000); // Intro display time
+        });
+
+        // 17 Reasons Flip Cards Logic
+        const flipCards = document.querySelectorAll('.flip-card');
+        const finalSurprise = document.getElementById('final-surprise');
+        let flippedCount = 0;
+        const flippedIndices = new Set();
+
+        flipCards.forEach(card => {
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('flipped')) {
+                    this.classList.add('flipped');
+                    const index = this.getAttribute('data-index');
+                    
+                    if (!flippedIndices.has(index)) {
+                        flippedIndices.add(index);
+                        flippedCount++;
+                        
+                        // Check if all 17 are flipped
+                        if (flippedCount === 17) {
+                            setTimeout(() => {
+                                finalSurprise.classList.remove('hidden');
+                                // Trigger reflow for animation
+                                void finalSurprise.offsetWidth;
+                                finalSurprise.classList.remove('scale-95', 'opacity-0');
+                                finalSurprise.classList.add('scale-100', 'opacity-100');
+                                
+                                // Scroll final card into view smoothly
+                                finalSurprise.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 800); // Wait for the last card to finish flipping
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
